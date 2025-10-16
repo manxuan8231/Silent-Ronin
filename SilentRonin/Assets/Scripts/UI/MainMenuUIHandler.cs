@@ -1,25 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuUIHandler : MonoBehaviour
 {
-    public GameObject panelQuit;// Panel xác nhận thoát game
-    [Header("UI MainMenu")]
-    public GameObject button;
-    public GameObject imageTitle;
-    public GameObject imageGround;
 
+    [Header("Panel")]
+    public GameObject paneBackGroundMain;
+    public GameObject panelOption; // Panel cài đặt
+    public GameObject panelQuit;// Panel xác nhận thoát game
+   
+
+    [Header("Thong so")]
+    public float delayShowPanelOption = 0.5f;
+    public float delayShowPanelQuit = 0.5f; // Thời gian chờ hiện panel xác nhận thoát game
+    public float delayOffPanelQuit = 0.5f;
+   
     public void OnStartGame()
     {
         SceneManager.LoadScene("Level_01"); 
     }
 
-    // Gọi khi bấm "Options"
-    public void OnOptions()
-    {
-        Debug.Log("Options menu opened");
-        // TODO: mở panel cài đặt
-    }
 
     // Gọi khi bấm "Achievements"
     public void OnAchievements()
@@ -28,13 +29,21 @@ public class MainMenuUIHandler : MonoBehaviour
         // TODO: mở panel thành tựu
     }
 
+    // Gọi khi bấm "Option"
+    public void OpenPanelOption()
+    {
+        StartCoroutine(DelayShowPanelOption());
+    }
+    public void OffPanelOption()
+    {
+        StartCoroutine(DelayOffPanelOption());
+    }
+
+
     // Gọi khi bấm "Quit Game"
     public void OpenPanelQuitGame()
     {
-        panelQuit.SetActive(true);
-        imageTitle.SetActive(false);
-        imageGround.SetActive(false);
-        button.SetActive(false);
+        StartCoroutine(DelayShowPanelQuit());
     } 
     public void YesQuitGame()
     {
@@ -43,10 +52,38 @@ public class MainMenuUIHandler : MonoBehaviour
     }
     public void NoQuitGame()
     {
-       
-        imageTitle.SetActive(true);
-        imageGround.SetActive(true);
-        button.SetActive(true);
+       StartCoroutine(DelayOffPanelQuit());
+
+    }
+
+    //-----------IEnumerator-------------
+    //Option
+    public IEnumerator DelayShowPanelOption()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelOption.SetActive(true);
+        paneBackGroundMain.SetActive(false);
+    }
+    public IEnumerator DelayOffPanelOption()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelOption.SetActive(false);
+        paneBackGroundMain.SetActive(true);
+    }
+
+    //panel quit
+    public IEnumerator DelayShowPanelQuit() 
+    {
+        yield return new WaitForSeconds(delayShowPanelQuit);
+        panelQuit.SetActive(true);
+        paneBackGroundMain.SetActive(false);
+
+    }
+    public IEnumerator DelayOffPanelQuit() 
+    {
+        yield return new WaitForSeconds(delayOffPanelQuit);
+        paneBackGroundMain.SetActive(true);
         panelQuit.SetActive(false);
+
     }
 }
