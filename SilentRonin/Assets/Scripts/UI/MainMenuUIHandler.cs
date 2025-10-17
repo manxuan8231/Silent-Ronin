@@ -9,15 +9,11 @@ public class MainMenuUIHandler : MonoBehaviour
     public GameObject paneBackGroundMain;
     public GameObject panelOption; // Panel cài đặt
     public GameObject panelQuit;// Panel xác nhận thoát game
-   
+    
 
     [Header("Thong so")]
-    public float delayShowPanelOption = 0.5f;
-    public float delayOffPanelOption = 0.5f; 
-    public float delayShowPanelGameSetting = 0.5f;
-    public float delayBackPanelGameSetting = 0.5f;
-    public float delayShowPanelQuit = 0.5f; // Thời gian chờ hiện panel xác nhận thoát game
-    public float delayOffPanelQuit = 0.5f;
+    public float delayShowPanelOption = 0.2f;
+   
 
     [Header("Tab Panel Option")]
     public GameObject optionContainer;// Chứa các tab trong panel option
@@ -58,6 +54,18 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         StartCoroutine(DelayBackPanelGameSetting());
     }
+
+    public void OpenPanelAudioSetting()
+    {
+        StartCoroutine(DelayOpenPanelAudioSetting());
+    }
+    public void BackPanelAudioSetting()
+    {
+        StartCoroutine(DelayBackPanelAudioSetting());
+    }
+    public void OpenPanelVideoSetting()
+    {
+    }
     // Gọi khi bấm "Quit Game"------------------
     public void OpenPanelQuitGame()
     {
@@ -84,35 +92,46 @@ public class MainMenuUIHandler : MonoBehaviour
     }
     public IEnumerator DelayOffPanelOption()
     {
-        yield return new WaitForSeconds(delayOffPanelOption);
+        yield return new WaitForSeconds(delayShowPanelOption);
         panelOption.SetActive(false);
         paneBackGroundMain.SetActive(true);
     }
     //tab
     public IEnumerator DelayOpenPanelGameSetting()
     {
-        yield return new WaitForSeconds(delayShowPanelGameSetting);
+        yield return new WaitForSeconds(delayShowPanelOption);
         panelGameSetting.SetActive(true);
         optionContainer.SetActive(false);
     } 
     public IEnumerator DelayBackPanelGameSetting()
     {
-        yield return new WaitForSeconds(delayBackPanelGameSetting);
+        yield return new WaitForSeconds(delayShowPanelOption);
         panelGameSetting.SetActive(false);
         optionContainer.SetActive(true);
     }
-
+    public IEnumerator DelayOpenPanelAudioSetting()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelAudioSetting.SetActive(true);
+        optionContainer.SetActive(false);
+    }
+    public IEnumerator DelayBackPanelAudioSetting()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelAudioSetting.SetActive(false);
+        optionContainer.SetActive(true);
+    }
     //panel quit----
     public IEnumerator DelayShowPanelQuit() 
     {
-        yield return new WaitForSeconds(delayShowPanelQuit);
+        yield return new WaitForSeconds(delayShowPanelOption);
         panelQuit.SetActive(true);
         paneBackGroundMain.SetActive(false);
 
     }
     public IEnumerator DelayOffPanelQuit() 
     {
-        yield return new WaitForSeconds(delayOffPanelQuit);
+        yield return new WaitForSeconds(delayShowPanelOption);
         paneBackGroundMain.SetActive(true);
         panelQuit.SetActive(false);
 
@@ -124,6 +143,7 @@ public class MainMenuUIHandler : MonoBehaviour
         panelOption.SetActive(false);
         panelQuit.SetActive(false);
         panelGameSetting.SetActive(false);
+        panelAudioSetting.SetActive(false);
         optionContainer.SetActive(true);
     }
 }

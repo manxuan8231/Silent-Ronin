@@ -22,6 +22,7 @@ public class GameSettingsHandler : MonoBehaviour
     {
         LoadSettings();
         UpdateUI();
+        languageSwitcher = FindAnyObjectByType<LanguageSwitcher>();
     }
 
     // --- BUTTON FUNCTIONS ---
