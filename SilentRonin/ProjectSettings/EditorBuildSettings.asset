@@ -8,5 +8,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MainTest.unity
     guid: a2b58d8c2e473104380da39b8eb2a7e5
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 0a917a8be5b890746abfbcc246b9aefd,
+      type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 71e9f00dcdded1b45a03b43cf1641678,
+      type: 2}
   m_UseUCBPForAssetBundles: 0
