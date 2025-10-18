@@ -8,6 +8,7 @@ public class MainMenuUIHandler : MonoBehaviour
     [Header("MainPanel")]
     public GameObject paneBackGroundMain;
     public GameObject panelOption; // Panel cài đặt
+    public GameObject panelAchievements; 
     public GameObject panelQuit;// Panel xác nhận thoát game
     
 
@@ -32,8 +33,11 @@ public class MainMenuUIHandler : MonoBehaviour
     // Gọi khi bấm "Achievements"--------------------
     public void OnAchievements()
     {
-        Debug.Log("Achievements opened");
-        // TODO: mở panel thành tựu
+        StartCoroutine(DelayShowPanelAchievements());
+    }
+      public void OffAchievements()
+    {
+       StartCoroutine(DelayOffPanelAchievements());
     }
 
     // Gọi khi bấm "Option"-----------------------
@@ -99,6 +103,7 @@ public class MainMenuUIHandler : MonoBehaviour
     }
 
     //-----------IEnumerator-------------
+
     //Option----
     public IEnumerator DelayShowPanelOption()
     {
@@ -166,6 +171,20 @@ public class MainMenuUIHandler : MonoBehaviour
         optionContainer.SetActive(true);
     }
 
+    //panel Achievements
+    public IEnumerator DelayShowPanelAchievements()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelAchievements.SetActive(true);
+        paneBackGroundMain.SetActive(false);
+    }
+    public IEnumerator DelayOffPanelAchievements()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        paneBackGroundMain.SetActive(true);
+        panelAchievements.SetActive(false);
+    }
+
     //panel quit----
     public IEnumerator DelayShowPanelQuit() 
     {
@@ -185,6 +204,7 @@ public class MainMenuUIHandler : MonoBehaviour
     private void Start()
     {
         paneBackGroundMain.SetActive(true);
+        panelAchievements.SetActive(false);
         panelOption.SetActive(false);
         panelQuit.SetActive(false);
         panelGameSetting.SetActive(false);
