@@ -90,6 +90,54 @@ MonoBehaviour:
     m_Localized: "Kh\xF4ng"
     m_Metadata:
       m_Items: []
+  - m_Id: 376962615148544
+    m_Localized: "Ch\u1ECDn T\u1EC7p L\u01B0u"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 378379350376448
+    m_Localized: "T\u1EA1o M\u1EDBi"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 378431481380864
+    m_Localized: Khe 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 379472708960256
+    m_Localized: Khe 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 379530334502912
+    m_Localized: Khe 3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382618835419136
+    m_Localized: "\xC2m l\u01B0\u1EE3ng t\u1ED5ng"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382820413669376
+    m_Localized: "\xC2m nh\u1EA1c"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 383116003049472
+    m_Localized: "Hi\u1EC7u \u1EE9ng \xE2m thanh"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 383399403782144
+    m_Localized: "T\u1EAFt to\xE0n b\u1ED9"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 392250945503232
+    m_Localized: "\u0110\u1ED9 ph\xE2n gi\u1EA3i"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 392407040720896
+    m_Localized: "To\xE0n m\xE0n h\xECnh"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 392638952177664
+    m_Localized: "\u0110\u1ED9 s\xE1ng"
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

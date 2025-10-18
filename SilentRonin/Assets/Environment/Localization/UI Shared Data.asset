@@ -89,6 +89,54 @@ MonoBehaviour:
     m_Key: no
     m_Metadata:
       m_Items: []
+  - m_Id: 376962615148544
+    m_Key: select_save_slot
+    m_Metadata:
+      m_Items: []
+  - m_Id: 378379350376448
+    m_Key: new
+    m_Metadata:
+      m_Items: []
+  - m_Id: 378431481380864
+    m_Key: slot1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 379472708960256
+    m_Key: slot2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 379530334502912
+    m_Key: slot3
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382618835419136
+    m_Key: master_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 382820413669376
+    m_Key: music_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 383116003049472
+    m_Key: sfx_volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 383399403782144
+    m_Key: mute_all
+    m_Metadata:
+      m_Items: []
+  - m_Id: 392250945503232
+    m_Key: 'resolution '
+    m_Metadata:
+      m_Items: []
+  - m_Id: 392407040720896
+    m_Key: fullscreen
+    m_Metadata:
+      m_Items: []
+  - m_Id: 392638952177664
+    m_Key: bright_ness
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

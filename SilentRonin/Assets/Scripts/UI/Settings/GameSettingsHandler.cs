@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using Mono.Cecil.Cil;
+using System;
 
 public class GameSettingsHandler : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class GameSettingsHandler : MonoBehaviour
     private bool autoSave = true;
     private bool showDamage = true;
 
+    public static event Action<string> OnLanguageChanged;
     //tham chieu
     public LanguageSwitcher languageSwitcher;
     void Start()
@@ -38,13 +41,15 @@ public class GameSettingsHandler : MonoBehaviour
             // dùng mã "en" / "vi" tương ứng
             string code = currentLanguage == 0 ? "en" : "vi";
             languageSwitcher.SetLocaleByCode(code);
+            // Gọi sự kiện đổi ngôn ngữ
+            OnLanguageChanged?.Invoke(code);
         }
         // đổi text hiển thị
         UpdateUI();
 
         // lưu lại
         SaveSettings();
-
+        
     }
 
     public void ToggleCameraShake()
@@ -59,6 +64,7 @@ public class GameSettingsHandler : MonoBehaviour
         autoSave = !autoSave;
         UpdateUI();
         SaveSettings();
+
     }
 
     public void ToggleShowDamage()
@@ -66,6 +72,7 @@ public class GameSettingsHandler : MonoBehaviour
         showDamage = !showDamage;
         UpdateUI();
         SaveSettings();
+       
     }
 
     public void ResetDefaults()
@@ -74,14 +81,18 @@ public class GameSettingsHandler : MonoBehaviour
         cameraShake = true;
         autoSave = true;
         showDamage = true;
+
         if (languageSwitcher != null)
         {
-            languageSwitcher.SetLocaleByCode("en");
+            string code = "en"; // đặt lại mặc định tiếng Anh
+            languageSwitcher.SetLocaleByCode(code);
+            OnLanguageChanged?.Invoke(code); // phát tín hiệu đổi ngôn ngữ cho toàn game
         }
+
         UpdateUI();
         SaveSettings();
-       
     }
+
 
     // --- HELPER ---
     private void UpdateUI()

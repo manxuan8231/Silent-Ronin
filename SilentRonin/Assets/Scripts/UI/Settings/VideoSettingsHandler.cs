@@ -19,6 +19,7 @@ public class VideoSettingsHandler : MonoBehaviour
     private int[] fpsOptions = { 30, 60, 120, 9999 }; // 9999 = không giới hạn
     private int currentFpsIndex = 1; // mặc định 60
 
+    private string currentLangCode = "en";
     private void Start()
     {
         LoadResolutions();
@@ -114,8 +115,19 @@ public class VideoSettingsHandler : MonoBehaviour
 
     private void UpdateUI()
     {
-        fullscreenText.text = isFullscreen ? "On" : "Off";
-        vsyncText.text = isVsync ? "On" : "Off";
+        // Dịch "On/Off"
+        if (currentLangCode == "vi")
+        {
+            fullscreenText.text = isFullscreen ? "Bật" : "Tắt";
+            vsyncText.text = isVsync ? "Bật" : "Tắt";
+        }
+        else
+        {
+            vsyncText.text = isVsync ? "On" : "Off";
+            fullscreenText.text = isFullscreen ? "On" : "Off";
+        }
+            
+
         brightnessValueText.text = Mathf.RoundToInt(brightnessSlider.value * 100f) + "%";
         string fpsLabel = fpsOptions[currentFpsIndex] == 9999 ? "Unlimited" : fpsOptions[currentFpsIndex] + "FPS";
         fpsText.text = fpsLabel;
@@ -141,5 +153,19 @@ public class VideoSettingsHandler : MonoBehaviour
         currentFpsIndex = PlayerPrefs.GetInt("FPSIndex", 1);
         Application.targetFrameRate = fpsOptions[currentFpsIndex] == 9999 ? -1 : fpsOptions[currentFpsIndex];
 
+    }
+    private void OnEnable()
+    {
+        GameSettingsHandler.OnLanguageChanged += UpdateLanguage;
+    }
+
+    private void OnDisable()
+    {
+        GameSettingsHandler.OnLanguageChanged -= UpdateLanguage;
+    }
+    private void UpdateLanguage(string code)
+    {
+        currentLangCode = code;
+        UpdateUI();
     }
 }

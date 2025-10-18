@@ -22,6 +22,7 @@ public class AudioSettingsHandler : MonoBehaviour
     private const string SfxKey = "SFXVolume";
     private const string SoundKey = "SoundEnabled";
 
+    private string currentLangCode = "en";
     private void Start()
     {
         LoadSettings();
@@ -63,8 +64,11 @@ public class AudioSettingsHandler : MonoBehaviour
     // --- Cập nhật UI ---
     private void UpdateUI()
     {
-        // Hiển thị ON/OFF
-        soundToggleText.text = isSoundOn ? "On" : "Off";
+        // Dịch "On/Off"
+        if (currentLangCode == "vi")
+            soundToggleText.text = isSoundOn ? "Bật" : "Tắt";
+        else
+            soundToggleText.text = isSoundOn ? "On" : "Off";
 
         // Hiển thị %
         masterValueText.text = Mathf.RoundToInt(masterSlider.value * 100f) + "%";
@@ -100,6 +104,20 @@ public class AudioSettingsHandler : MonoBehaviour
 
         ApplySettings();
         SaveSettings();
+        UpdateUI();
+    }
+    private void OnEnable()
+    {
+        GameSettingsHandler.OnLanguageChanged += UpdateLanguage;
+    }
+
+    private void OnDisable()
+    {
+        GameSettingsHandler.OnLanguageChanged -= UpdateLanguage;
+    }
+    private void UpdateLanguage(string code)
+    {
+        currentLangCode = code;
         UpdateUI();
     }
 }
