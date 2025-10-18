@@ -25,7 +25,7 @@ public class MainMenuUIHandler : MonoBehaviour
     // Gọi khi bấm "Start Game"---------------------
     public void OnStartGame()
     {
-        SceneManager.LoadScene("Level_01"); 
+        SceneManager.LoadScene("Map1"); 
     }
 
 
@@ -63,9 +63,25 @@ public class MainMenuUIHandler : MonoBehaviour
     {
         StartCoroutine(DelayBackPanelAudioSetting());
     }
+
     public void OpenPanelVideoSetting()
     {
+        StartCoroutine(DelayOpenPanelVideoSetting());
+    } 
+    public void BackPanelVideoSetting()
+    {
+        StartCoroutine(DelayBackPanelVideoSetting());
     }
+
+    public void OpenPanelKeyboardSetting()
+    {
+        StartCoroutine(DelayOpenPanelKeyboard());
+    }
+    public void BackPanelKeyboardSetting()
+    {
+        StartCoroutine(DelayBackPanelKeyboard());
+    }
+
     // Gọi khi bấm "Quit Game"------------------
     public void OpenPanelQuitGame()
     {
@@ -96,6 +112,7 @@ public class MainMenuUIHandler : MonoBehaviour
         panelOption.SetActive(false);
         paneBackGroundMain.SetActive(true);
     }
+
     //tab
     public IEnumerator DelayOpenPanelGameSetting()
     {
@@ -109,6 +126,7 @@ public class MainMenuUIHandler : MonoBehaviour
         panelGameSetting.SetActive(false);
         optionContainer.SetActive(true);
     }
+
     public IEnumerator DelayOpenPanelAudioSetting()
     {
         yield return new WaitForSeconds(delayShowPanelOption);
@@ -121,6 +139,33 @@ public class MainMenuUIHandler : MonoBehaviour
         panelAudioSetting.SetActive(false);
         optionContainer.SetActive(true);
     }
+
+    public IEnumerator DelayOpenPanelVideoSetting()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelVideoSetting.SetActive(true);
+        optionContainer.SetActive(false);
+    }
+    public IEnumerator DelayBackPanelVideoSetting()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelVideoSetting.SetActive(false);
+        optionContainer.SetActive(true);
+    }
+
+    public IEnumerator DelayOpenPanelKeyboard()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelKeyBoardSetting.SetActive(true);
+        optionContainer.SetActive(false);
+    }
+    public IEnumerator DelayBackPanelKeyboard()
+    {
+        yield return new WaitForSeconds(delayShowPanelOption);
+        panelKeyBoardSetting.SetActive(false);
+        optionContainer.SetActive(true);
+    }
+
     //panel quit----
     public IEnumerator DelayShowPanelQuit() 
     {
@@ -144,6 +189,8 @@ public class MainMenuUIHandler : MonoBehaviour
         panelQuit.SetActive(false);
         panelGameSetting.SetActive(false);
         panelAudioSetting.SetActive(false);
+        panelVideoSetting.SetActive(false);
+        panelKeyBoardSetting.SetActive(false);
         optionContainer.SetActive(true);
     }
 }
