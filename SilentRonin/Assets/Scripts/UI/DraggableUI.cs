@@ -5,15 +5,13 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 {
     private RectTransform rectTransform;
     private Canvas canvas;
-
-    [Header("Giới hạn vùng kéo (drag area)")]
-    public RectTransform dragArea; // Canvas chính hoặc panel cha
+    private Vector2 offset;
 
     [Header("Vị trí mặc định (đặt thủ công trong Inspector)")]
     public Vector2 defaultPosition;
 
-    [Header("Chế độ chỉnh vị trí")]
-    public bool isEditMode = false; // ⚙️ Chỉ true khi đang trong Settings
+    [Header("Chế độ chỉnh vị trí (bật khi người chơi đang ở Setting)")]
+    public bool isEditMode = false;
 
     private void Awake()
     {
@@ -28,34 +26,46 @@ public class DraggableUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (!isEditMode) return; // ❌ Không cho kéo nếu đang trong gameplay
+        if (!isEditMode) return;
+
+        // Tính khoảng cách giữa con trỏ và tâm nút
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvas.transform as RectTransform,
+            eventData.position,
+            canvas.worldCamera,
+            out Vector2 localMousePos
+        );
+
+        offset = rectTransform.anchoredPosition - localMousePos;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (!isEditMode) return; // ❌ Không cho kéo
+        if (!isEditMode) return;
 
-        Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            dragArea ?? (canvas.transform as RectTransform),
+            canvas.transform as RectTransform,
             eventData.position,
             canvas.worldCamera,
-            out localPoint
+            out Vector2 localPoint
         );
 
-        // Giới hạn trong vùng canvas
-        Vector2 halfSize = (dragArea ?? (canvas.transform as RectTransform)).rect.size / 2;
-        localPoint.x = Mathf.Clamp(localPoint.x, -halfSize.x, halfSize.x);
-        localPoint.y = Mathf.Clamp(localPoint.y, -halfSize.y, halfSize.y);
+        Vector2 newPos = localPoint + offset;
 
-        rectTransform.anchoredPosition = localPoint;
+        // Giới hạn trong vùng canvas
+        Vector2 halfButton = rectTransform.rect.size * rectTransform.lossyScale / 2f;
+        Vector2 canvasHalf = (canvas.transform as RectTransform).rect.size / 2f;
+
+        newPos.x = Mathf.Clamp(newPos.x, -canvasHalf.x + halfButton.x, canvasHalf.x - halfButton.x);
+        newPos.y = Mathf.Clamp(newPos.y, -canvasHalf.y + halfButton.y, canvasHalf.y - halfButton.y);
+
+        rectTransform.anchoredPosition = newPos;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        if (!isEditMode) return; // ❌ Không lưu khi gameplay
+        if (!isEditMode) return;
 
-        // ✅ Auto-save khi ở Setting
         PlayerPrefs.SetFloat(gameObject.name + "_X", rectTransform.anchoredPosition.x);
         PlayerPrefs.SetFloat(gameObject.name + "_Y", rectTransform.anchoredPosition.y);
         PlayerPrefs.Save();
