@@ -15,6 +15,7 @@ public class NinjaController : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private float checkGroundDistance = 0.1f;
 
+
     private float moveInput = 0f;
     private bool facingRight = true;
 
@@ -99,7 +100,8 @@ public class NinjaController : MonoBehaviour
             if (animator != null)
                 animator.SetTrigger(animJumpUp);
 
-            EffectPool.Instance.PlayJumpEffect(transform.position);
+            Vector3 effectPos = transform.position + Vector3.down * 1.5f;
+            EffectPool.Instance.PlayJumpEffect(effectPos);
         }
     }
 
@@ -125,7 +127,8 @@ public class NinjaController : MonoBehaviour
                 isFalling = false;
                 isJumping = false;
 
-                EffectPool.Instance.PlayLandEffect(transform.position);
+                Vector3 effectPos = transform.position + Vector3.down * 2;
+                EffectPool.Instance.PlayLandEffect(effectPos);
             }
         }
     }
